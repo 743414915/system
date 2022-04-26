@@ -52,30 +52,30 @@
         color: #ff2db5;
     }
 
-    /deep/ .el-calendar {;
+    ::v-deep .el-calendar {
         color: #ff76b9;
         background: no-repeat center/100% url("../../assets/img/date/dateBackground.png");
     }
 
-    /deep/ button {
+    ::v-deep button {
         background: rgb(244, 236, 240);
     }
 
-    /deep/ thead {
+    ::v-deep thead {
         height: 50px
     }
 
-    /deep/ tbody {
+    ::v-deep tbody {
         line-height: 75px;
     }
 
-    /deep/ .el-calendar__header {
+    ::v-deep .el-calendar__header {
         line-height: 33px;
         padding-top: 0px;
         padding-bottom: 0px;
     }
 
-    /deep/ .el-calendar__body {
+    ::v-deep .el-calendar__body {
         padding-bottom: 0px;
         padding-top: 0px;
     }
