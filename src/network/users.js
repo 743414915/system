@@ -9,6 +9,12 @@ export function selectUser(username) {
   })
 }
 
+export function manageUser() {
+  return request({
+    url: "/user/manageUser",
+  })
+}
+
 export function modifyPassword(userId, username, newPassword) {
   return request({
     url: "/user/modifyPassword",

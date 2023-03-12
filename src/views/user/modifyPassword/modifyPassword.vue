@@ -4,11 +4,7 @@
       style="margin-top: 150px"
       v-if="this.active === 0 || this.active === 1"
     >
-      <el-input
-        readonly="true"
-        :placeholder="this.$store.state.username"
-        class="username"
-      >
+      <el-input readonly="true" :placeholder="username" class="username">
         <template #prepend>当前账户：</template>
       </el-input>
     </el-row>
@@ -51,6 +47,7 @@ import { ElMessage } from "element-plus";
 import { selectUser, modifyPassword } from "network/users";
 import { hex_md5 } from "common/md5";
 
+import { getCookieObj, isEmptyObj } from "common/utils";
 export default {
   name: "modifyPassword",
   data() {
@@ -65,10 +62,17 @@ export default {
       active: 0,
       password: "",
       newPassword: "",
+      username: "",
     };
   },
   created() {
-    selectUser(this.$store.state.username).then((res) => {
+    let cookieObj = getCookieObj();
+    if (!isEmptyObj(cookieObj)) {
+      this.username = cookieObj.username;
+    } else {
+      this.username = this.$store.state.username;
+    }
+    selectUser(this.username).then((res) => {
       this.user = res.data;
     });
   },
@@ -93,7 +97,9 @@ export default {
           ).then((res) => {
             if (res.code === 10000) {
               this.active = 3;
-              this.$message.success("密码修改成功，3秒后跳转至登录页面请重新登陆！");
+              this.$message.success(
+                "密码修改成功，3秒后跳转至登录页面请重新登陆！"
+              );
               setTimeout(() => {
                 this.$store.commit("DeledtBase", this.user1);
                 this.$router.replace("/main/index").catch((err) => {

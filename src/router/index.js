@@ -17,6 +17,7 @@ const AddInfo = () => import('views/lostandfound/addInfo/addInfo')
 
 const SelectRecode = () => import('views/accountManagement/selectRecode/selectRecode')
 const Lock = () => import('views/accountManagement/lock/lock')
+const UserList = () => import('views/accountManagement/userList/userList')
 // 1.安装router
 const routes = [
   {
@@ -70,6 +71,10 @@ const routes = [
       {
         path: '/lock/lock',
         component: Lock
+      },
+      {
+        path: '/userList/userList',
+        component: UserList
       }
     ]
   },

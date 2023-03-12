@@ -1,28 +1,39 @@
+
+import JsCookies from "js-cookie";
+
+export function isEmptyObj(obj) {
+  return Object.keys(obj).length === 0
+}
+
+export function getCookieObj() {
+  let cookie_userInfo = {};
+  cookie_userInfo = getCookie("userInfo")
+    ? JSON.parse(getCookie("userInfo"))
+    : {};
+  return cookie_userInfo;
+}
+
 export function getItem(sKey) {
   return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[-.+*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
 };
 
-export function setItem(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
-  if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
-    return false;
-  }
-  var sExpires = "";
-  if (vEnd) {
-    switch (vEnd.constructor) {
-      case Number:
-        sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
-        break;
-      case String:
-        sExpires = "; expires=" + vEnd;
-        break;
-      case Date:
-        sExpires = "; expires=" + vEnd.toUTCString();
-        break;
-    }
-  }
-  document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
-  return true;
-};
+/**
+ * 
+ * @param {*} name cookie的key
+ * @param {*} value cookie的值
+ * @param {*} expires cookie的过期时间，单位是天
+ */
+export function setCookie(name, value, expires) {
+  JsCookies.set(name, value, {
+    expires
+  });
+}
+export function getCookie(name) {
+  return JsCookies.get(name);
+}
+export function removeCookie(name) {
+  return JsCookies.remove(name);
+}
 
 export function removeItem(sKey, sPath, sDomain) {
   if (!sKey || !this.hasItem(sKey)) {
